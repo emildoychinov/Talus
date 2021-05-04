@@ -67,6 +67,13 @@ class tictactoe(commands.Cog):
                     move = i
         return move+1
 
+    async def delTrace (self, ctx):
+        async for msg in ctx.history():
+            if msg.content == '~game':
+                await msg.delete()
+                return
+            await msg.delete()
+
     @commands.command()
     async def game(self, ctx):
         self.field = ['-']*9
@@ -80,31 +87,29 @@ class tictactoe(commands.Cog):
             flg = 1
             self.p_sign = 'o'
             self.comp_sign = 'x'
-        flag=0
         for i in range(9):
             if self.win():
                 msg = await self.edt(ctx, 'Talus', '```THE GAME HAS ENDED! '+('I WIN!\n' if self.win()==1 else 'YOU WIN!\n')+self.represent()+'\n```')
                 time.sleep(1.5)
-                await msg.delete()
-            if flag == 0:
-                await ctx.channel.send('```\n'+self.represent()+'\n```')
-                flag=1
+                await self.delTrace(ctx)
+            await self.edt(ctx, 'Talus', '```\n'+self.represent()+'\n```')
             if i%2 == flg:
                 a = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
                 if a.content == 'stop' :
                     await ctx.channel.send('```\nOkay, I get it, human. You are too weak\n```')
                     return
 
-            pos = int(a.content) if i%2==flg else self.makeMove()
+            pos = (int(a.content) if a.content.isdigit() else 0) if i%2==flg else self.makeMove()
             print(pos)
             while pos > 9 or pos<=0 or self.field[pos-1]!='-':
                 a = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
                 pos = int(a.content)
             self.field[pos-1] = self.p_sign if i%2 == flg else self.comp_sign
-            await self.edt(ctx, 'Talus', '```\n'+self.represent()+'\n```')
 
         msg = await self.edt(ctx, 'Talus', '```THE GAME HAS ENDED! IT IS A DRAW!\n'+self.represent()+'\n```')
         time.sleep(1.5)
-        await msg.delete()
+        await self.delTrace(ctx)
+
 def setup(bot):
     bot.add_cog(tictactoe(bot))
+~                                                                                                                                                                                           
