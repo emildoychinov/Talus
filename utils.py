@@ -6,15 +6,11 @@ class utilities(commands.Cog):
         self.bot = bot
     @commands.command()
     async def clear(self, ctx, args=None):
-        msgs = list()
-        if args==None:
-            await ctx.channel.send("no args were given")
+        if args==None or args.isdigit()==0:
+            await ctx.channel.send("no args were given" if args==None else "invalid args")
             return
-        if args.isdigit()==0:
-            await ctx.channel.send("invalid args")
-            return
-        async for msg in ctx.message.channel.history(limit=(int(args)+1)):
-            await msg.delete()
+        await ctx.message.channel.purge(limit=int(args)+1)
+
 
 def setup(bot):
     bot.add_cog(utilities(bot))
