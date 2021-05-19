@@ -37,7 +37,7 @@ class parser :
             return operand1 ** operand2
 
     def precedence(self, op1, op2): return self.tokens[op1].value < self.tokens[op2].value
-    
+
     def get_precedent(self):
 
         ix = 4
@@ -51,7 +51,7 @@ class parser :
         return ix
 
     def lex(self):
-        
+
         self.analyze()
         self.operators.clear()
         self.operands.clear()
@@ -61,18 +61,20 @@ class parser :
             if i in self.tokens :
                 self.operators.append(i)
 
-        self.operands = re.findall(r'\d+', self.expr)
+        self.operands = re.findall(r'\d+\.\d+|\d+', self.expr)
 
     def analyze(self):
-        
+
         expression = re.split(r'([\s\+\-\*\/\^])', self.expr)
         expression = list(filter(lambda x: x!='' and x!=' ', expression))
-        cycles = 0 
+        print(expression)
+        cycles = 0
         flag = 0
-        self.operands = re.findall(r'\d+', self.expr)
+        self.operands = re.findall(r'\d+\.\d+|\d+', self.expr)
         for i in range(len(expression)):
             count = 0
-            if not expression[i].isnumeric() and i == 0:
+            print(expression[i])
+            if not expression[i].isnumeric() and i == 0 and ('.' not in expression[i]):
                 expression.insert(i, '0')
                 flag = 1
             if expression[i] in self.tokens:
@@ -94,13 +96,14 @@ class parser :
 
         self.expr = ''.join(list(expression))
 
-            
+
     def evaluate (self) :
 
         self.lex()
         print('expression : ' + self.expr + '\n')
+        print(self.expr)
         for i in range(len(self.operators)):
-            
+
             print('operators : \n' + str(self.operators) + '\noperands : \n' + str(self.operands))
             ix = self.get_precedent()
             self.operands[ix] = str(self.calc(self.operators[ix], float(self.operands[ix]), float(self.operands[ix+1])))
@@ -112,5 +115,5 @@ class parser :
         self.evaluate()
         return str(self.expr)+'\n'+str(self.operands)
 
-a = parser('6^4+23*2--2^0-3')
+a = parser('6.1^4+23*2.1--2^0-3.3')
 print(a)
