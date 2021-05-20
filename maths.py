@@ -67,10 +67,11 @@ class parser :
 
         expression = re.split(r'([\s\+\-\*\/\^])', self.expr)
         expression = list(filter(lambda x: x!='' and x!=' ', expression))
-        print(expression)
+        print('expr'+str(expression))
         cycles = 0
         flag = 0
-        self.operands = re.findall(r'\d+\.\d+|\d+', self.expr)
+        self.operands = re.findall(r'\s\d+\.\d+|\d+', self.expr)
+        print(self.operands)
         for i in range(len(expression)):
             count = 0
             print(expression[i])
@@ -96,7 +97,6 @@ class parser :
 
         self.expr = ''.join(list(expression))
 
-
     def evaluate (self) :
 
         self.lex()
@@ -110,10 +110,9 @@ class parser :
             self.operands.pop(ix+1)
             self.operators.pop(ix)
 
+        return self.operands[0]
+
     def __repr__(self):
 
         self.evaluate()
         return str(self.expr)+'\n'+str(self.operands)
-
-a = parser('6.1^4+23*2.1--2^0-3.3')
-print(a)
