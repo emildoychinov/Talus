@@ -1,21 +1,25 @@
 from enum import Enum
 import re
+import math
 class TOKEN(Enum):
 
     POW = 1
     MULT_DIV = 2
     SUB_ADD = 3
+    PAR = 4
 
 class parser :
 
-    def __init__(self, expr):
-        self.expr = expr
+    def __init__(self):
+        self.expr = str()
         self.tokens = {
             '^' : TOKEN.POW,
             '/' : TOKEN.MULT_DIV,
             '*' : TOKEN.MULT_DIV,
             '-' : TOKEN.SUB_ADD,
-            '+' : TOKEN.SUB_ADD
+            '+' : TOKEN.SUB_ADD,
+            '(' : TOKEN.PAR,
+            ')' : TOKEN.PAR
         }
 
         self.operators = []
@@ -50,32 +54,35 @@ class parser :
 
         return ix
 
-    def lex(self):
+    def lex(self, expr):
 
-        self.analyze()
+        self.expr = self.analyze(expr)
         self.operators.clear()
         self.operands.clear()
 
         for i in self.expr :
 
-            if i in self.tokens :
+            if i in self.tokens and self.tokens[i]!=TOKEN.PAR:
                 self.operators.append(i)
 
         self.operands = re.findall(r'\d+\.\d+|\d+', self.expr)
 
-    def analyze(self):
-
-        expression = re.split(r'([\s\+\-\*\/\^])', self.expr)
+    def analyze(self, expr, count = 0):
+        par = str()
+        expression = re.split(r'([\s\+\-\*\/\^\(\)])', expr)
         expression = list(filter(lambda x: x!='' and x!=' ', expression))
+        print(expression)
         print('expr'+str(expression))
         cycles = 0
         flag = 0
-        self.operands = re.findall(r'\s\d+\.\d+|\d+', self.expr)
+        self.operands = re.findall(r'\s\d+\.\d+|\d+', expr)
         print(self.operands)
-        for i in range(len(expression)):
+        i = 0
+        while i < len(expression):
+            print ('i : ' + str(i)+'\n')
+            print('len : ' + str(len(expression))+'\n')
             count = 0
-            print(expression[i])
-            if not expression[i].isnumeric() and i == 0 and ('.' not in expression[i]):
+            if not expression[i].isnumeric() and i == 0 and ('.' not in expression[i]) and expression[i]!='(' and expression[i]!=')':
                 expression.insert(i, '0')
                 flag = 1
             if expression[i] in self.tokens:
@@ -85,21 +92,36 @@ class parser :
                         count +=1
                         expression.pop(ix)
                     expression.insert(ix, '+' if count % 2 == 0 and count!=0 else '-')
-                else :
+                elif self.tokens[expression[ix]]!=TOKEN.PAR and expression[ix] != '-':
                     opr = expression[ix]
                     while expression[ix] == opr :
                         count+=1
                         expression.pop(ix)
                     expression.insert(ix, opr)
-                cycles+=1
-                if cycles == ((len(self.operands)-1) if flag == 0 else (len(self.operands))):
-                    break
+                elif expression[ix] == '(' :
+                    count = 0
+                    expression.pop(ix)
+                    while expression[ix]!=')':
+                        par+=expression[ix]
+                        if(expression[ix] == '('):
+                            print('found')
+                            count+=1
+                        expression.pop(ix)
+                    expression.pop(ix)
+                    for i in range(count):
+                        par+=')'
+                    expression.insert(ix,self.evaluate(par))
+                    print('test : \n '+str(expression))
+                    par = ''
+            i+=1
 
-        self.expr = ''.join(list(expression))
 
-    def evaluate (self) :
+        return ''.join(list(expression))
 
-        self.lex()
+
+    def evaluate (self, expr) :
+
+        self.lex(expr)
         print('expression : ' + self.expr + '\n')
         print(self.expr)
         for i in range(len(self.operators)):
@@ -110,9 +132,11 @@ class parser :
             self.operands.pop(ix+1)
             self.operators.pop(ix)
 
-        return self.operands[0]
+        self.operands[0] = str(round(float(self.operands[0]),5))
+        return (self.operands[0]) if self.operands[0] != '69.0' else (self.operands[0]+', nice')
 
     def __repr__(self):
 
         self.evaluate()
         return str(self.expr)+'\n'+str(self.operands)
+
