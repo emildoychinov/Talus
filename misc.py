@@ -7,9 +7,8 @@ class misc (commands.Cog):
         self.bot = bot
     @commands.command()
     async def solve(self, ctx, *, arg):
-        #print(arg)
-        solver = maths.parser(arg)
-        embed=discord.Embed(title = arg, description=("The equation equals "+str(solver.evaluate())))
+        solver = maths.parser()
+        embed=discord.Embed(title = solver.analyze(arg), description=("The equation equals "+str(solver.evaluate(arg))))
         await ctx.channel.send(embed=embed)
 
 def setup(bot):
