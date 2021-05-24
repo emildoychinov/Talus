@@ -33,9 +33,7 @@ class parser :
         elif operator == '*' : return operand1 * operand2
         elif operator == '/' : return operand1 / operand2
         elif operator == '^' : return operand1 ** operand2
-
-    def precedence(self, op1, op2): return self.tokens[op1].value < self.tokens[op2].value
-
+        
     def get_precedent(self):
 
         ix = 0
