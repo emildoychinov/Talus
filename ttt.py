@@ -28,12 +28,11 @@ class tictactoe(commands.Cog):
                 return -1 if fld[winPos[i][0]] == self.p_sign else 1
         return 0
 
-    async def edt (self, ctx, name, cnt, flag=1):
-        async for msg in ctx.history():
-            if msg.author.name == name:
-                await msg.edit(content = cnt)
-                return msg
-            await msg.delete()
+    async def edt (self, ctx, cnt, msg, auth_msg = None):
+        if auth_msg is not None :
+            await auth_msg.delete()
+        await msg.edit(content = cnt)
+        return msg
 
     def minimax(self, pl, fld = None):
         if fld is None:
@@ -67,17 +66,13 @@ class tictactoe(commands.Cog):
                     move = i
         return move+1
 
-    async def delTrace (self, ctx):
-        async for msg in ctx.history():
-            if msg.content == '~game':
-                await msg.delete()
-                return
-            await msg.delete()
+    async def delTrace (self, ctx, msg):
+        await msg.delete()
 
     @commands.command()
     async def game(self, ctx):
         self.field = ['-']*9
-        await ctx.channel.send('```WELCOME TO THE GAME OF TICTACTOE!\n Do you want to be (f)irst or (s)econd?\n```')
+        msg = await ctx.channel.send('```WELCOME TO THE GAME OF TICTACTOE!\n Do you want to be (f)irst or (s)econd?\n```')
         a = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
         if (a.content == 'f'):
             flg = 0
@@ -89,10 +84,14 @@ class tictactoe(commands.Cog):
             self.comp_sign = 'x'
         for i in range(9):
             if self.win():
-                msg = await self.edt(ctx, 'Talus', '```THE GAME HAS ENDED! '+('I WIN!\n' if self.win()==1 else 'YOU WIN!\n')+self.represent()+'\n```')
+                msg = await self.edt(ctx, '```THE GAME HAS ENDED! '+('I WIN!\n' if self.win()==1 else 'YOU WIN!\n')+self.represent()+'\n```', msg)
                 time.sleep(1.5)
-                await self.delTrace(ctx)
-            await self.edt(ctx, 'Talus', '```\n'+self.represent()+'\n```')
+                await self.delTrace(ctx, msg)
+                return
+            try :
+                msg = await self.edt(ctx, '```\n'+self.represent()+'\n```', msg, a)
+            except :
+                msg = await self.edt(ctx, '```\n'+self.represent()+'\n```', msg)
             if i%2 == flg:
                 a = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
                 if a.content == 'stop' :
@@ -105,11 +104,12 @@ class tictactoe(commands.Cog):
                 a = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author)
                 pos = int(a.content)
             self.field[pos-1] = self.p_sign if i%2 == flg else self.comp_sign
-
-        msg = await self.edt(ctx, 'Talus', '```THE GAME HAS ENDED! IT IS A DRAW!\n'+self.represent()+'\n```')
+        try :
+            msg = await self.edt(ctx, '```THE GAME HAS ENDED! IT IS A DRAW!\n'+self.represent()+'\n```', msg, a)
+        except :
+            msg = await self.edt(ctx, '```THE GAME HAS ENDED! IT IS A DRAW!\n'+self.represent()+'\n```', msg)
         time.sleep(1.5)
-        await self.delTrace(ctx)
+        await self.delTrace(ctx, msg)
 
 def setup(bot):
     bot.add_cog(tictactoe(bot))
-~                                                                                                                                                                                           
