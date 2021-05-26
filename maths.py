@@ -23,11 +23,12 @@ class parser :
         return list(filter(lambda x: x!='' and x!=' ', expr))
     
     def calc(self, operator, operand1, operand2):
-        if operator == '+' : return operand1 + operand2
-        elif operator == '-' : return operand1 - operand2
-        elif operator == '*' : return operand1 * operand2
-        elif operator == '/' : return operand1 / operand2
-        elif operator == '^' : return operand1 ** operand2
+        if operator == '+' : return f'{operand1 + operand2:.20f}'
+        if operator == '-' : return f'{operand1 - operand2:.20f}'
+        if operator == '*' : return f'{operand1 * operand2:.20f}'
+        if operator == '/' : return f'{operand1 / operand2:.20f}'
+        if operator == '^' : return f'{operand1 ** operand2:.20f}'
+        
     #This function is vital for us : we get the operator that has the biggest precedence
     def get_precedent(self):
         ix = 0
@@ -60,8 +61,6 @@ class parser :
         #here we use a while loop instead of a for loop, since in this case it's more managable like that
         while i < len(expression):
             count = 0
-            #if element on the first index of the expression is an operator we insert a 0 : that way if an expression like -3+1 is given, we will evaluate it as 0-3+1
-            if not expression[i].isnumeric() and i == 0 and ('.' not in expression[i]) and self.tokens[expression[i]]!=TOKEN.PAR : expression.insert(i, '0')
             #we check if the element at the given index is a token
             if expression[i] in self.tokens:
                 #if the element is a - we enter a separated case
