@@ -1,6 +1,7 @@
 from enum import Enum
 import re
 import math
+import decimal
 class TOKEN(Enum):
 
     POW = 1
@@ -23,11 +24,14 @@ class parser :
         return list(filter(lambda x: x!='' and x!=' ', expr))
     
     def calc(self, operator, operand1, operand2):
-        if operator == '+' : return f'{operand1 + operand2:.20f}'
-        if operator == '-' : return f'{operand1 - operand2:.20f}'
-        if operator == '*' : return f'{operand1 * operand2:.20f}'
-        if operator == '/' : return f'{operand1 / operand2:.20f}'
-        if operator == '^' : return f'{operand1 ** operand2:.20f}'
+        ctx = decimal.Context()
+        ctx.prec = 20
+        if operator == '+' : dec = ctx.create_decimal(repr(operand1+operand2))
+        if operator == '-' : dec = ctx.create_decimal(repr(operand1-operand2))
+        if operator == '*' : dec = ctx.create_decimal(repr(operand1*operand2))
+        if operator == '/' : dec = ctx.create_decimal(repr(operand1/operand2))
+        if operator == '^' : dec = ctx.create_decimal(repr(operand1**operand2))
+        return format(dec, 'f')
         
     #This function is vital for us : we get the operator that has the biggest precedence
     def get_precedent(self):
