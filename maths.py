@@ -2,6 +2,9 @@ from enum import Enum
 import re
 import math
 import decimal
+class EquationError(Exception):
+    pass
+
 class TOKEN(Enum):
 
     POW = 1
@@ -50,6 +53,8 @@ class parser :
         #we split the expression
         self.expr = self.split(self.expr)
         for i in range(len(self.expr)) :
+            #verifying the equation is valid
+            if (self.expr[i] not in self.tokens) and self.expr[i]!='.' and (not self.expr[i].isdigit()) : raise EquationError
             #since we are reading the operands with minuses (for ex in an expression like 1-1 the operands will be 1 and -1) if the given operator is a - then we append it as a +
             #but only if the next operator in the expression is not an operator used for raising a number to a given power(^)
             if self.expr[i] == '-' and self.expr[i-1] not in self.tokens : self.operators.append('-' if self.expr[i+2 if i+2 in range(len(self.expr)) else i+1] == '^' else '+')
@@ -69,26 +74,32 @@ class parser :
             if expression[i] in self.tokens:
                 #if the element is a - we enter a separated case
                 if expression[i] == '-' :
-                    #we count the consecutive minuses and remove them
-                    while expression[i] == '-':
-                        count += 1
-                        expression.pop(i)
+                    try :
+                        #we count the consecutive minuses and remove them
+                        while expression[i] == '-':
+                            count += 1
+                            expression.pop(i)
+                    except : return 'NULL'
                     #in the end if the instances are an even count then we insert a plus and if they are an odd count - a minus
                     expression.insert(i, '+' if count % 2 == 0 and count!=0 else '-')
                 #we remove the consecutive operators if they are not brackets or minuses
                 elif self.tokens[expression[i]]!=TOKEN.PAR and expression[i]!='-':
-                    while expression[i] == expression[i+1] : expression.pop(i)
+                     try :
+                        while expression[i] == expression[i+1] : expression.pop(i)
+                    except : return 'NULL'
                 #if we have an open bracket
                 elif expression[i] == '(' :
                     #we make a string for the expression between the brackets
                     par = ''
                     #we save the index of the bracket
                     ix = i
-                    while expression[i]!=')':
-                        i+=1
-                        if(expression[i] == '('):
+                    try :
+                        while expression[i]!=')':
+                            i+=1
+                            if(expression[i] == '('):
                             #we save the index of the new open bracket in case there are more than one open brackets in the expression
-                            ix = i
+                                ix = i
+                    except : return 'NULL'
                     expression.pop(ix)
                     #here we append the elements of the expression between the brackets
                     while expression[ix]!=')':
