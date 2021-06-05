@@ -6,6 +6,7 @@ from keras.layers import *
 from keras.models import Model
 from keras.models import load_model
 def getData():
+    #a regex pattern that will be used to remove the emojis from the dataset i am using
     reg_pattern = re.compile(pattern = "["
             u"\U0001F600-\U0001F64F"  
             u"\U0001F300-\U0001F5FF"  
