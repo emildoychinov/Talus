@@ -99,7 +99,7 @@ class utils:
                     self.decoderTarget[line, timestep-1, self.targetDict[token]] = 1.
         return [self.encoderInput, self.decoderInput, self.decoderTarget, self.encSeqLen, self.decSeqLen]
 
-    def makeModel(self, dimensionality = 256, epochs = 750, batch_size = 10):
+    def makeModel(self, dimensionality = 256, epochs = 1200, batch_size = 32):
         self.makeMatrices()
 
         encoderInputs = Input(shape=(None, len(self.inputTokens)))
