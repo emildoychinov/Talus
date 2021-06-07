@@ -1,2 +1,31 @@
 # Talus
-Talus is an intelligent discord bot that is like no other : Talus can speak to you, beat you in the game of Tic Tac Toe, solve mathematical expressions and do lots of other interesting stuff. Talus can help you moderate your server and thus make your life easier! Don't be fooled though. Talus's main purpose is to be able to talk to you as intelligently as possible. This discord bot serves as a project for my "Scripting languages" class at TUES.
+
+Foobar is a Discord bot written in Python.
+Talus serves as my project for the "Scripting languages" class at TUES
+
+## Who is Talus intended for?
+
+Talus is intended for all the people that use discord and want a unique and interesting experience.
+
+## How is Talus 'unique'?
+
+Talus is unique in many ways. Unlike other discord bots it can speak to you (well, sort off), solve mathematical expressions, beat you in a game of Tic Tac Toe and even help you with the moderation of your server!
+## Talus's commands 
+ 
+## Talus posseses commands for different needs.
+  
+   # There is a mathematical parser 
+  It is a recursive descent parser which is shortly yet effectively and elegantly written. It can solve any PEMDAS equation you like. 
+  
+   # As said earlier, Talus can talk to you. 
+  This is done via a seq2seq algorithm that is set up on a encoder-decoder LSTM model. The loss it uses is categorical crossentropy.  And the method of teaching that is used is teacher forcing (the technique where the target word is passed as the next input to the decoder in short). Talus is not the most intelligent bot, but when given a good dataset and more epochs of learning, it can reach a good accuracy.
+
+  # Talus can play Tic Tac Toe with you
+  Talus uses a full tree search minimax algorithm in order to be able to play as good as possible versus an oponent. For a new inexperienced user the nature of this algorithm could be confusing, since there are instances where the bot will pick a move that results in a draw even though it has an obvious move for a win. That happens because the aim of the algorithm is not just to win but to minimize the chances of losing and thus maximise the chances of winning. In other words, a normal draw is more preferable to a risky win. 
+
+## What's next?
+
+Even though Talus is a project, as mention earlier, I fully intend to continue working on it and make the bot as good as it can possibly get.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
