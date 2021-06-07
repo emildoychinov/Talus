@@ -1,7 +1,10 @@
 import re
+class grammarError(Exception) : pass
 class Tokenizer:
     def __init__(self, expr):
         self.tokens = re.findall(r'[\d\.]+|[+-\/*\(\)\^]', expr)
+        if re.match(r'[a-zA-z]', expr):
+            raise grammarError ('Invalid expression')
         self.ix = 0
 
     def getNext(self) :
@@ -20,6 +23,14 @@ class parser:
     def __init__(self, expr):
         self.expr = expr
         self.tokenizer = Tokenizer(self.expr)
+
+    def isNumber(self, token):
+        try :
+            float(token)
+            return True
+        except ValueError:
+            return False
+
     def term (self):
         op1 = float(self.factor())
         while self.tokenizer.peekNext() in ('+', '-'):
@@ -50,8 +61,11 @@ class parser:
         token = self.tokenizer.getNext()
         if token == '(':
             token = self.term()
-            self.tokenizer.getNext()
-        return token
+            if self.tokenizer.getNext() != ')':
+                raise grammarError('The expression is invalid')
 
-a = parser('(-3)*(7-2/(3^2))')
-print(a.term())
+        if not self.isNumber(token):
+            self.tokenizer.ix-=1
+            token = 0
+
+        return token
