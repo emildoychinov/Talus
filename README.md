@@ -12,15 +12,15 @@ Talus is intended for all the people that use discord and want a unique and inte
 Talus is unique in many ways. Unlike other discord bots it can speak to you (well, sort off), solve mathematical expressions, beat you in a game of Tic Tac Toe and even help you with the moderation of your server!
 ## Talus's commands 
  
-## Talus posseses commands for different needs.
+# Talus posseses commands for different needs.
   
-   # There is a mathematical parser 
+   ## There is a mathematical parser 
   It is a recursive descent parser which is shortly yet effectively and elegantly written. It can solve any PEMDAS equation you like. 
   
-   # As said earlier, Talus can talk to you. 
+   ## As said earlier, Talus can talk to you. 
   This is done via a seq2seq algorithm that is set up on a encoder-decoder LSTM model. The loss it uses is categorical crossentropy.  And the method of teaching that is used is teacher forcing (the technique where the target word is passed as the next input to the decoder in short). Talus is not the most intelligent bot, but when given a good dataset and more epochs of learning, it can reach a good accuracy.
 
-  # Talus can play Tic Tac Toe with you
+  ## Talus can play Tic Tac Toe with you
   Talus uses a full tree search minimax algorithm in order to be able to play as good as possible versus an oponent. For a new inexperienced user the nature of this algorithm could be confusing, since there are instances where the bot will pick a move that results in a draw even though it has an obvious move for a win. That happens because the aim of the algorithm is not just to win but to minimize the chances of losing and thus maximise the chances of winning. In other words, a normal draw is more preferable to a risky win. 
 
 ## What's next?
