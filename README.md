@@ -1,6 +1,6 @@
 # Talus
 
-Foobar is a Discord bot written in Python.
+Talus is a Discord bot written in Python.
 Talus serves as my project for the "Scripting languages" class at TUES
 
 ## Who is Talus intended for?
