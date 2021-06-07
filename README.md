@@ -10,8 +10,6 @@ Talus is intended for all the people that use discord and want a unique and inte
 ## How is Talus 'unique'?
 
 Talus is unique in many ways. Unlike other discord bots it can speak to you (well, sort off), solve mathematical expressions, beat you in a game of Tic Tac Toe and even help you with the moderation of your server!
-
-# Talus's commands 
  
 # Talus posseses commands for different needs.
   
