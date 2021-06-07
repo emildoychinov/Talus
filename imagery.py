@@ -23,8 +23,10 @@ class imgs(commands.Cog):
             return att
         except IndexError:
             try :
-                att = self.msg.attachments[0]
-                return att
+                if ctx.message.guild == self.msg.guild :
+                    att = self.msg.attachments[0]
+                    return att
+                return None
             except :
                 return None
 
@@ -69,7 +71,6 @@ class imgs(commands.Cog):
         im = ImageOps.invert(img)
         im.save('changed.png')
         self.msg = await ctx.channel.send(file=discord.File("changed.png"))
-
 
 def setup(bot):
     bot.add_cog(imgs(bot))
