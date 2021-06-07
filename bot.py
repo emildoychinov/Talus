@@ -69,4 +69,4 @@ async def on_message(message):
     if str(bot.user.id) in message.content and message.content[0]!='~':
         msg = message.content.replace(f'<@!{bot.user.id}> ' if f'<@!{bot.user.id}>' in message.content else '@{bot.user.id}> ','')
         await message.channel.send(chatter.respond(msg))
-bot.run('ODE0NTkwMzQzMzY1Mzk0NDUy.YDgEYA.HDsHkV9FSKSFYKU9_oyqZPXkg_A')
+bot.run('mytoken')
