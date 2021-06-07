@@ -26,7 +26,7 @@ Talus is unique in many ways. Unlike other discord bots it can speak to you (wel
 
 ## What's next?
 
-Even though Talus is a project, as mention earlier, I fully intend to continue working on it and make the bot as good as it can possibly get.
+Even though Talus is a project, as mentioned earlier, I fully intend to continue working on it and make the bot as good as it can possibly get.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
