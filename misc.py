@@ -7,9 +7,16 @@ class misc (commands.Cog):
         self.bot = bot
     @commands.command()
     async def solve(self, ctx, *, arg):
-        solver = maths.parser(arg)
-        embed=discord.Embed(title = arg, description=("The equation equals " + str(solver.term())))
+        try :
+            solver = maths.parser(arg)
+            try :
+                embed=discord.Embed(title = arg, description=("The equation equals " + str(solver.term())))
+            except :
+                embed=discord.Embed(title = "NULL", description=("You provided an invalid expression"))
+        except :
+            embed=discord.Embed(title = "NULL", description=("You provided an invalid expression"))
         await ctx.channel.send(embed=embed)
+
     @commands.command()
     async def avatar(self, ctx, member : discord.Member = None):
         if member == None : member = ctx.message.author
