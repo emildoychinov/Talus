@@ -22,6 +22,13 @@ Talus is unique in many ways. Unlike other discord bots it can speak to you (wel
   ## Talus can play Tic Tac Toe with you
   Talus uses a full tree search minimax algorithm in order to be able to play as good as possible versus an oponent. For a new inexperienced user the nature of this algorithm could be confusing, since there are instances where the bot will pick a move that results in a draw even though it has an obvious move for a win. That happens because the aim of the algorithm is not just to win but to minimize the chances of losing and thus maximise the chances of winning. In other words, a normal draw is more preferable to a risky win. 
 
+# Don't know how to use the bot?
+
+```yaml
+~help (to see the list of all commands)
+~help <command> (to see information about a specific command)
+```
+
 # What's next?
 
 Even though Talus is a project, as mentioned earlier, I fully intend to continue working on it and make the bot as good as it can possibly get.
