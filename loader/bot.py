@@ -79,4 +79,4 @@ async def on_message(message):
         msg = message.content.replace(f'<@!{bot.user.id}> ' if f'<@!{bot.user.id}>' in message.content else '@{bot.user.id}> ','')
         await message.channel.send(chatter.respond(msg))
 
-bot.run('ODE0NTkwMzQzMzY1Mzk0NDUy.YDgEYA.T7H5lBoa8D_T2keBZopQXONzfPI')
+bot.run('mytoken')
