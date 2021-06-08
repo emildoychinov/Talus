@@ -25,7 +25,6 @@ class imgs(commands.Cog):
             try :
                 async for msg in ctx.message.channel.history(limit = int(5) + 1):
                      try :
-                            print("trying")
                             att = msg.attachments[0]
                             return att
                      except :
