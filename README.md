@@ -20,6 +20,8 @@ Talus is unique in many ways. Unlike other discord bots it can speak to you (wel
    <img src="https://cdn.discordapp.com/attachments/757618149272191099/852103807189778432/unknown.png"
      alt="Markdown Monster icon"
      style="float: left; margin-right: 10px;" />
+     
+     
   This is done via a seq2seq algorithm that is set up on a encoder-decoder LSTM model. The loss it uses is categorical crossentropy.  And the method of teaching that is used is teacher forcing (the technique where the target word is passed as the next input to the decoder in short). Talus is not the most intelligent bot, but when given a good dataset and more epochs of learning, it can reach a good accuracy.
 
   ## Talus can play Tic Tac Toe with you
