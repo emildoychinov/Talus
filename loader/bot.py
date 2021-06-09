@@ -24,13 +24,13 @@ async def solve(ctx):
     embed.add_field(name = "Use", value = "```~solve <expression>```")
     await ctx.send(embed = embed)
 
-@help.command() 
+@help.command()
 async def modify(ctx):
     embed = discord.Embed(title = "Modify :art:", description = "`Lightens or darkens a provided image depending on the given parameter`")
     embed.add_field(name = "Use", value = "```~modify <number> <image>```")
     await ctx.send(embed = embed)
 
-@help.command() 
+@help.command()
 async def rotate(ctx):
     embed = discord.Embed(title = "Modify :art:", description = "`Rotates a provided image depending on the given parameter`")
     embed.add_field(name = "Use", value = "```~rotate <number> <image>```")
@@ -57,7 +57,7 @@ async def game(ctx):
     embed.add_field(name = "Playing the game", value = "```While playing the game, type in a number between 1 and 9 to take up a position on the field```")
     await ctx.send(embed = embed)
 
-@help.command() 
+@help.command()
 async def avatar(ctx):
     embed = discord.Embed(title = "Avatar :person_doing_cartwheel:", description = "`Sends the avatar of a tagged user`")
     embed.add_field(name = "Use", value = "```~avatar <user>```")
@@ -68,15 +68,15 @@ async def avatar(ctx):
 async def ban(ctx):
     embed = discord.Embed(title = "Ban :police_car:", description = "`Bans a tagged user`")
     embed.add_field(name = "Use", value = "```~ban <user> <reason>```")
-    embed.add_field(name = "Note :exclamation:", value = "```You cannot use that command unless you have the permisions to kick people```")    
+    embed.add_field(name = "Note :exclamation:", value = "```You cannot use that command unless you have the permisions to kick people```")
     await ctx.send(embed = embed)
 
 @bot.event
 async def on_message(message):
     message.content = message.content.lower()
     await bot.process_commands(message)
-    if str(bot.user.id) in message.content and message.content[0]!='~':
-        msg = message.content.replace(f'<@!{bot.user.id}> ' if f'<@!{bot.user.id}>' in message.content else '@{bot.user.id}> ','')
+    if bot.user.mentioned_in(message) and message.content[0]!='~':
+        msg = message.content.replace(f'<@!{bot.user.id}> ' if f'<@!{bot.user.id}>' in message.content else f'<@{bot.user.id}> ','')
         await message.channel.send(chatter.respond(msg))
 
-bot.run('mytoken')
+bot.run('my token')
