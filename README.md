@@ -1,5 +1,9 @@
 # Talus
-
+ <img src="https://media.discordapp.net/attachments/761478365046767626/852988520540405800/pixil-frame-0_1.png"
+     alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" />
+     
+     
 Talus is a Discord bot written in Python.
 Talus serves as my project for the "Scripting languages" class at TUES
 
