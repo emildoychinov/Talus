@@ -3,6 +3,7 @@ import discord
 import time
 import maths
 from decimal import Decimal, getcontext
+import wikipedia
 class misc (commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -27,6 +28,13 @@ class misc (commands.Cog):
         embed.set_image(url = avatarUrl)
         await ctx.send(embed = embed)
         return
+    @commands.command()
+    async def info(self, ctx, *, arg):
+        try :
+            title, summary = arg, wikipedia.summary(arg, sentences = 2)
+        except wikipedia.exceptions.DisambiguationError as e:
+            title, summary = e.options[0], wikipedia.summary(e.options[0], sentences = 2)
+        await ctx.channel.send(embed = discord.Embed(title = title, description = summary))
 
 def setup(bot):
     bot.add_cog(misc(bot))
