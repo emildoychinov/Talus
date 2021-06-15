@@ -2,15 +2,17 @@ from discord.ext import commands
 import discord
 import time
 import maths
+from decimal import Decimal, getcontext
 class misc (commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     @commands.command()
     async def solve(self, ctx, *, arg):
+        getcontext().prec = 20
         try :
             solver = maths.parser(arg)
             try :
-                embed=discord.Embed(title = arg, description=("The equation equals " + str(solver.term())))
+                embed=discord.Embed(title = arg, description=("The equation equals " + str(Decimal(str(solver.term())))))
             except :
                 embed=discord.Embed(title = "NULL", description=("You provided an invalid expression"))
         except :
