@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from chatbot import chatter
 import os
-bot = commands.Bot(command_prefix='~')
+bot = commands.Bot(command_prefix='~', activity=discord.Activity(type=discord.ActivityType.watching, name="~help"))
 bot.load_extension('misc')
 for file in os.listdir('cogs'):
     if file.endswith('.py'):
@@ -10,6 +10,9 @@ for file in os.listdir('cogs'):
 chatter = chatter.ChatBot()
 chatter.prepare()
 bot.remove_command('help')
+@bot.event
+async def on_ready():
+    print("We are up!")
 @bot.group(invoke_without_command = True)
 async def help(ctx):
     embed = discord.Embed(title = "Help", description = "`Use ~help <command> for extended info`")
@@ -79,4 +82,4 @@ async def on_message(message):
         msg = message.content.replace(f'<@!{bot.user.id}> ' if f'<@!{bot.user.id}>' in message.content else f'<@{bot.user.id}> ','')
         await message.channel.send(chatter.respond(msg))
 
-bot.run('my token')
+bot.run('mytoken')
