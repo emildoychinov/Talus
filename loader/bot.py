@@ -16,7 +16,7 @@ async def on_ready():
 @bot.group(invoke_without_command = True)
 async def help(ctx):
     embed = discord.Embed(title = "Help", description = "`Use ~help <command> for extended info`")
-    embed.add_field(name = "Miscellaneous", value = "```solve, game, avatar```")
+    embed.add_field(name = "Miscellaneous", value = "```solve, game, avatar, info```")
     embed.add_field(name = "Imagery :art:", value = "```modify, rotate, invert```")
     embed.add_field(name = "Moderation :police_officer:", value = "```clear, ban```")
     await ctx.send(embed = embed)
@@ -72,6 +72,12 @@ async def ban(ctx):
     embed = discord.Embed(title = "Ban :police_car:", description = "`Bans a tagged user`")
     embed.add_field(name = "Use", value = "```~ban <user> <reason>```")
     embed.add_field(name = "Note :exclamation:", value = "```You cannot use that command unless you have the permisions to kick people```")
+    await ctx.send(embed = embed)
+
+@help.command()
+async def info(ctx):
+    embed = discord.Embed(title = "Info :mag_right:", description = "`Searches information based on a given topic`")
+    embed.add_field(name = "Use", value = "```~info <topic>```")
     await ctx.send(embed = embed)
 
 @bot.event
