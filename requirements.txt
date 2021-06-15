@@ -8,3 +8,4 @@ Pillow==8.1.0
 tensorflow==2.5.0
 tensorflow-gpu==2.5.0
 wheel==0.36.2
+wikipedia==1.4.0
