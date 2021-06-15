@@ -9,7 +9,7 @@ fullFile = lambda path,f : path+f
 class imgs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+
     def write(self, att):
         URL = att.url
         img = requests.get(URL)
@@ -17,7 +17,7 @@ class imgs(commands.Cog):
         file.write(img.content)
         file.close()
         return Image.open(fullFile(path,"img.png"))
-    
+
     async def check(self, ctx):
         try:
             return ctx.message.attachments[0]
@@ -42,7 +42,7 @@ class imgs(commands.Cog):
         if att is None :
             await ctx.channel.send("no image was provided")
             return None
-        img = self.write(att) 
+        img = self.write(att)
         enc = ImageEnhance.Brightness(img)
         img = enc.enhance(float(fac))
         img.save(fullFile(path,"img.png"))
@@ -59,7 +59,7 @@ class imgs(commands.Cog):
             await ctx.channel.send("no image was provided")
             return None
         img = self.write(att)
-        img = img.rotate(float(ang))
+        img = img.rotate(float(ang), expand = True)
         img.save(fullFile(path,"img.png"))
         img.close()
         await ctx.channel.send(file=discord.File(fullFile(path,"img.png")))
