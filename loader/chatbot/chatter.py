@@ -138,7 +138,7 @@ class utils:
     #here we make the deep learning model of the bot
     #batch_size, epochs and dimensionality can be changed and they will give different results
     #the epochs define how many times we will "feed" the algorithm a full dataset
-    #the batch size defines the size of the splits of data we will pass to the algorithm, since we can't pass an entire datase
+    #the batch size defines the size of the splits of data we will pass to the algorithm, since we can't pass an entire dataset
     def makeModel(self, dimensionality = 256, epochs = 5000, batch_size = 10):
         #we make the matrices
         self.makeMatrices()
