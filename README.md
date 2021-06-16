@@ -11,7 +11,7 @@ Talus is intended for all the people that use discord and want a unique and inte
 
 Talus is unique in many ways. Unlike other discord bots it can speak to you (well, sort off), solve mathematical expressions, beat you in a game of Tic Tac Toe and even help you with the moderation of your server!
  
-# Talus posseses commands for different needs.
+# Talus possesses commands for different needs.
   
    ## There is a mathematical parser 
   It is a recursive descent parser which is shortly yet effectively and elegantly written. It can solve any PEMDAS equation you like. 
