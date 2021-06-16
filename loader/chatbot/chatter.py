@@ -139,7 +139,7 @@ class utils:
     #batch_size, epochs and dimensionality can be changed and they will give different results
     #the epochs define how many times we will "feed" the algorithm a full dataset
     #the batch size defines the size of the splits of data we will pass to the algorithm, since we can't pass an entire datase
-    def makeModel(self, dimensionality = 256, epochs = 1200, batch_size = 32):
+    def makeModel(self, dimensionality = 256, epochs = 5000, batch_size = 10):
         #we make the matrices
         self.makeMatrices()
         #the input layer will define a matrix for holding the one-hot vectors
